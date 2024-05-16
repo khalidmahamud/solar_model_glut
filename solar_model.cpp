@@ -26,7 +26,7 @@ void loadTextures() {
     textures[6] = SOIL_load_OGL_texture("textures/uranus_texture.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
     textures[7] = SOIL_load_OGL_texture("textures/neptune_texture.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
     textures[8] = SOIL_load_OGL_texture("textures/sun_texture.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-    textures[9] = SOIL_load_OGL_texture("textures/stars.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+    textures[9] = SOIL_load_OGL_texture("textures/stars_milky_way.jpg", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 }
 
 Planet mercury = { 0, 0.05, 0.4, 1.0 / 88.0, 1.0 }; // 1/88 of Earth's orbit speed, 1000 times faster
