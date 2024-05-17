@@ -2,7 +2,6 @@
 #include <math.h>
 #include <string>
 #include <iostream>
-#include "trial2.h"
 
 /*
                             ==============================
@@ -18,11 +17,6 @@ flying UFO: K and L
 Day-Night view: N
 
 */
-
-void handleMouseClick(int button, int state, int x, int y);
-void updateVenusScene(int value);
-void handleSpecialKeypress(int key, int x, int y);
-void handleKeypress(unsigned char key, int x, int y);
 
 // Global variables
 float ufoX = 0.0f;
@@ -325,7 +319,7 @@ void Poster(float x, float y) {
 
 
 }
-void updateVenusScenePosterPosition() {
+void updatePosterPosition() {
     posterX += posterSpeed;
     if (posterX > 40.0f) {
         posterX = -40.0f; // Reset position when it reaches the right boundary
@@ -419,7 +413,7 @@ void Intro()
         glClearColor(0.0f, 0.0f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         glRasterPos2f(-15.0f, 0.0f);
-         Poster(posterX, posterY); // Draw Poster at updateVenusScened position
+         Poster(posterX, posterY); // Draw Poster at updated position
         std::string introText = "Welcome to Planet War!";
         for (char const &c: introText) {
             glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, c);
@@ -452,9 +446,6 @@ void Intro()
 
 
 void displayPlanetScene() {
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_LIGHT0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(-40, 40, -20, 40);
@@ -463,12 +454,6 @@ void displayPlanetScene() {
 
     glClearColor(0.0f, 0.5f, 1.5f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
-    glutKeyboardFunc(handleKeypress);
-    glutSpecialFunc(handleSpecialKeypress);
-    glutMouseFunc(handleMouseClick);
-
-    // Start intro timer
 
     Intro();
 
@@ -504,7 +489,7 @@ void handleKeypress(unsigned char key, int x, int y) {
         case 'n':
             showLayer = !showLayer; // Toggle the transparent black layer
             showStar = !showStar; // Toggle the visibility of the star
-            glutPostRedisplay(); // Request a redraw to updateVenusScene the display
+            glutPostRedisplay(); // Request a redraw to update the display
             break;
     }
     glutPostRedisplay();
@@ -539,7 +524,7 @@ void handleMouseClick(int button, int state, int x, int y) {
     glutPostRedisplay();
 }
 
-void updateVenusScene(int value) {
+void update(int value) {
     // Move enemy UFO left to right
     enemyUfoX += enemyUfoSpeed;
     if (enemyUfoX > 40.0f || enemyUfoX < -40.0f) {
@@ -585,31 +570,29 @@ void updateVenusScene(int value) {
     }
 
     
-    // UpdateVenusScene Poster position
-    updateVenusScenePosterPosition();
+    // Update Poster position
+    updatePosterPosition();
     
     glutPostRedisplay();
-    glutTimerFunc(10, updateVenusScene, 0);
-     }
+    glutTimerFunc(10, update, 0);
+}
+
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    int screenWidth = glutGet(GLUT_SCREEN_WIDTH);
+    int screenHeight = glutGet(GLUT_SCREEN_HEIGHT);
+    glutInitWindowSize(screenWidth, screenHeight);
+    glutCreateWindow("Planet Scene");
+    glutInitWindowPosition(0, 0);
+    glutDisplayFunc(displayPlanetScene);
+    glutKeyboardFunc(handleKeypress);
+    glutSpecialFunc(handleSpecialKeypress);
+    glutMouseFunc(handleMouseClick);
 
 
-
-// int main(int argc, char** argv) {
-//     glutInit(&argc, argv);
-//     int screenWidth = glutGet(GLUT_SCREEN_WIDTH);
-//     int screenHeight = glutGet(GLUT_SCREEN_HEIGHT);
-//     glutInitWindowSize(screenWidth, screenHeight);
-//     glutCreateWindow("Planet Scene");
-//     glutInitWindowPosition(0, 0);
-//     glutDisplayFunc(displayPlanetScene);
-//     glutKeyboardFunc(handleKeypress);
-//     glutSpecialFunc(handleSpecialKeypress);
-//     glutMouseFunc(handleMouseClick);
-
-
-//     // Start intro timer
-//     introEndTime = glutGet(GLUT_ELAPSED_TIME);
-//     glutTimerFunc(10, updateVenusScene, 0);
-//     glutMainLoop();
-//     return 0;
-// }
+    // Start intro timer
+    introEndTime = glutGet(GLUT_ELAPSED_TIME);
+    glutTimerFunc(10, update, 0);
+    glutMainLoop();
+    return 0;
+}
