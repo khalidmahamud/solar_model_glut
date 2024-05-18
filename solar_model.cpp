@@ -147,25 +147,6 @@ void display() {
     static GLfloat neptuneRotationAngle = 0.0;
 
 
-    // Update rotation angles
-    mercuryAngle += mercury.orbitSpeed * 1000.0;
-    venusAngle += venus.orbitSpeed * 1000.0;
-    earthAngle += earth.orbitSpeed * 1000.0;
-    marsAngle += mars.orbitSpeed * 1000.0;
-    jupiterAngle += jupiter.orbitSpeed * 1000.0;
-    saturnAngle += saturn.orbitSpeed * 1000.0;
-    uranusAngle += uranus.orbitSpeed * 1000.0;
-    neptuneAngle += neptune.orbitSpeed * 1000.0;
-
-    // Update rotation angles for day and night
-    mercuryRotationAngle += mercury.rotationSpeed;
-    venusRotationAngle += venus.rotationSpeed;
-    earthRotationAngle += earth.rotationSpeed;
-    marsRotationAngle += mars.rotationSpeed;
-    jupiterRotationAngle += jupiter.rotationSpeed;
-    saturnRotationAngle += saturn.rotationSpeed;
-    uranusRotationAngle += uranus.rotationSpeed;
-    neptuneRotationAngle += neptune.rotationSpeed;
 
     // Draw orbits first
     drawOrbit(mercury);
