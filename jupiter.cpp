@@ -1,3 +1,7 @@
+/*  Use left mouse button for starting the spaceship
+    Use the arrowkeys for controlling the rover
+*/
+
 #include <SOIL/SOIL.h>
 #include <GL/glut.h>
 #include <cmath>

@@ -39,6 +39,25 @@ Planet uranus = { 6, 0.2, 4.5, 1.0 / 30685.0, 1.0 }; // 1/30685 of Earth's orbit
 Planet neptune = { 7, 0.18, 5.5, 1.0 / 60190.0, 1.0 }; // 1/60190 of Earth's orbit speed, 1000 times faster
 Planet sun = { 8, 0.3, 0, 0.0, 0.0 }; // The sun doesn't move
 
+
+static GLfloat mercuryAngle = 0.0;
+static GLfloat venusAngle = 0.0;
+static GLfloat earthAngle = 0.0;
+static GLfloat marsAngle = 0.0;
+static GLfloat jupiterAngle = 0.0;
+static GLfloat saturnAngle = 0.0;
+static GLfloat uranusAngle = 0.0;
+static GLfloat neptuneAngle = 0.0;
+
+static GLfloat mercuryRotationAngle = 0.0;
+static GLfloat venusRotationAngle = 0.0;
+static GLfloat earthRotationAngle = 0.0;
+static GLfloat marsRotationAngle = 0.0;
+static GLfloat jupiterRotationAngle = 0.0;
+static GLfloat saturnRotationAngle = 0.0;
+static GLfloat uranusRotationAngle = 0.0;
+static GLfloat neptuneRotationAngle = 0.0;
+
 GLfloat light_position[] = { 0.0, 0.0, 5.0, 0.0 }; // Adjust light position
 GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 }; // Ambient light color
 GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 }; // Diffuse light color
@@ -108,6 +127,26 @@ void drawOrbit(Planet planet) {
     glEnable(GL_LIGHTING); // Re-enable lighting
 }
 
+void updateSolarPlanetsRotation() {
+        mercuryAngle += mercury.orbitSpeed * 1000.0;
+        venusAngle += venus.orbitSpeed * 1000.0;
+        earthAngle += earth.orbitSpeed * 1000.0;
+        marsAngle += mars.orbitSpeed * 1000.0;
+        jupiterAngle += jupiter.orbitSpeed * 1000.0;
+        saturnAngle += saturn.orbitSpeed * 1000.0;
+        uranusAngle += uranus.orbitSpeed * 1000.0;
+        neptuneAngle += neptune.orbitSpeed * 1000.0;
+
+        mercuryRotationAngle += mercury.rotationSpeed;
+        venusRotationAngle += venus.rotationSpeed;
+        earthRotationAngle += earth.rotationSpeed;
+        marsRotationAngle += mars.rotationSpeed;
+        jupiterRotationAngle += jupiter.rotationSpeed;
+        saturnRotationAngle += saturn.rotationSpeed;
+        uranusRotationAngle += uranus.rotationSpeed;
+        neptuneRotationAngle += neptune.rotationSpeed;
+}
+
 
 void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -128,25 +167,7 @@ void display() {
 
     glDisable(GL_TEXTURE_2D); // Disable texture after drawing the background
 
-    static GLfloat mercuryAngle = 0.0;
-    static GLfloat venusAngle = 0.0;
-    static GLfloat earthAngle = 0.0;
-    static GLfloat marsAngle = 0.0;
-    static GLfloat jupiterAngle = 0.0;
-    static GLfloat saturnAngle = 0.0;
-    static GLfloat uranusAngle = 0.0;
-    static GLfloat neptuneAngle = 0.0;
-
-    static GLfloat mercuryRotationAngle = 0.0;
-    static GLfloat venusRotationAngle = 0.0;
-    static GLfloat earthRotationAngle = 0.0;
-    static GLfloat marsRotationAngle = 0.0;
-    static GLfloat jupiterRotationAngle = 0.0;
-    static GLfloat saturnRotationAngle = 0.0;
-    static GLfloat uranusRotationAngle = 0.0;
-    static GLfloat neptuneRotationAngle = 0.0;
-
-
+    updateSolarPlanetsRotation();
 
     // Draw orbits first
     drawOrbit(mercury);

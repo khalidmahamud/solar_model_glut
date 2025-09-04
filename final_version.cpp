@@ -1,7 +1,15 @@
+/*
+    Press 'e' for naviagting to Earth,
+    Press 'j' for naviagting to Jupiter,
+    Press 'v' for naviagting to Venus,
+    Press 'm' for naviagting to Mars
+*/
+
 #include <GL/glut.h>
 #include <SOIL/SOIL.h>
 #include <cmath>
 #include <string>
+#include <vector>
 #include <iostream>
 
 // Structs and global variables and function prototypes
@@ -13,6 +21,30 @@ struct Planet
     GLfloat orbitSpeed;
     GLfloat rotationSpeed;
 };
+
+GLfloat textPos[][2] = {
+    {-5, 6}, 
+    {-4, 6},
+    {-3, 6},
+    {-2, 6}
+};
+
+// Text descriptions
+std::vector<std::string> textList = {
+    "Press 'e' for naviagting to Earth",
+    "Press 'j' for naviagting to Jupiter",
+    "Press 'v' for naviagting to Venus",
+    "Press 'm' for naviagting to Mars"
+};
+
+void renderBitmapString(float x, float y, void *font, const std::string &text)
+{
+    glRasterPos2f(x, y);
+    for (char c : text)
+    {
+        glutBitmapCharacter(font, c);
+    }
+}
 
 // Function declarations
 void displaySolarModel();
@@ -427,6 +459,11 @@ void displaySolarModel()
     drawPlanet(saturn, saturnAngle, saturnRotationAngle);
     drawPlanet(uranus, uranusAngle, uranusRotationAngle);
     drawPlanet(neptune, neptuneAngle, neptuneRotationAngle);
+
+    // Render the current displayed text
+    for (size_t i = 0; i < textList.size(); ++i) {
+        renderBitmapString(textPos[i][0], textPos[i][1], GLUT_BITMAP_HELVETICA_18, textList[i]);
+    }
 
     glutSwapBuffers();
     glutPostRedisplay();
